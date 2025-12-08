@@ -1,0 +1,336 @@
+/**********************************************
+ * VARIÁVEIS GERAIS
+ **********************************************/
+:root {
+    --azul-fundo: #6c89ab;       /* Cor principal de fundo do site */
+    --azul-escuro: rgba(31, 43, 58, 0.95); /* Cor do header e rodapé  */
+    --dourado: #f8e38d;          /* Cor usada para destaques/sombras */
+    --creme: #fff9ed;            /* Cor usada em textos claros e caixas */
+    --texto-escuro: #1f2b3a;     /* Cor de texto para contraste sobre o creme */
+}
+
+/**********************************************
+ * AJUSTES GERAIS 
+ **********************************************/
+html {
+    width: 100%;
+    max-width: 100vw;            /* Garante que o site nunca ultrapasse a largura da tela */
+    height: 100%;                /* Define altura base */
+    overflow-x: hidden;          /* Corta qualquer elemento que tente "vazar" para os lados */
+    background-color: var(--azul-fundo);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    padding-top: 100px;          /* Espaço para o menu fixo não cobrir o conteúdo */
+    
+    /* Configuração Flexbox Vertical */
+    /* Garante que o rodapé vá para o fundo automaticamente */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;           /* Altura mínima de 100% da tela */
+    
+    /* Travas de segurança contra rolagem lateral */
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    
+    box-sizing: border-box;      /* Garante que padding não aumente o tamanho das caixas */
+    font-family: 'League Gothic', sans-serif;
+    background-color: var(--azul-fundo);
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* Configuração Geral de Imagens */
+img {
+    margin: 10px;
+    vertical-align: middle;
+    user-select: none;           /* Impede seleção azul */
+    pointer-events: none;        /* Desativa cliques por padrão */
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/**********************************************
+ * CABEÇALHO 
+ **********************************************/
+header {
+    background-color: var(--azul-escuro);
+    color: white;
+    display: flex;               /* Alinha logo e menu lado a lado */
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 5vw;            /* Espaçamento lateral responsivo */
+    
+    position: fixed;             /* Fixa no topo */
+    top: 0;
+    left: 0;
+    right: 0;                    /* Estica de ponta a ponta sem estourar largura */
+    width: auto;
+    
+    z-index: 1000;               /* Fica acima de tudo */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;              /* Impede a logo de encolher */
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo h2 {
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;             /* Permite quebrar linha em telas pequenas */
+    justify-content: flex-end;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    font-size: 18px;
+    white-space: nowrap;         /* Impede quebra de linha no texto do link */
+}
+
+nav a:hover {
+    color: #a3c2f0;
+}
+
+/**********************************************
+ * TÍTULO PRINCIPAL
+ **********************************************/
+h1 {
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: 60px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--creme);
+    text-shadow: 3px 3px 0 #000, 5px 5px 10px rgba(0,0,0,0.5), 0 0 25px #f8e38d;
+    
+    margin: 20px 0 50px 0;
+    padding: 0 10px;
+}
+
+/**********************************************
+ * CONTEÚDO ESPECÍFICO (TEXTOS E CAIXAS)
+ **********************************************/
+
+/* Subtítulo (ex: "O ACAMPAMENTO") */
+.caixa-subtitulo {
+    background-color: var(--creme);
+    color: var(--azul-escuro);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 45px;
+    
+    /* Margens grandes para separar do topo */
+    margin: 100px auto 60px; 
+    
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    text-transform: uppercase;
+    display: inline-block;       /* A caixa ocupa só o tamanho do texto */
+    position: relative;
+    z-index: 2;
+}
+
+/* Blocos de texto longo */
+.bloco-texto {
+    letter-spacing: 1px;
+    max-width: 1150px;           /* Limite de largura para leitura confortável */
+    margin: 30px auto;           /* Centraliza */
+    padding: 0 20px;
+    font-size: 35px;
+    line-height: 1.4;
+    color: var(--creme);
+    background: none;
+    box-shadow: none;
+    position: relative;
+    z-index: 2;
+}
+
+/* Espaço extra no último texto para não colar no rodapé */
+.bloco-texto:last-of-type {
+    margin-bottom: 80px; 
+}
+
+/**********************************************
+ * IMAGENS ESPECÍFICAS 
+ **********************************************/
+
+/* Logo lateral (canto superior direito) */
+.logo-canto {
+    position: absolute;          /* Posicionamento livre */
+    top: 100px;
+    right: 5vw;
+    width: 170px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: transform 0.3s ease; /* Animação suave */
+    
+    /* HABILITA O MOUSE */
+    pointer-events: auto; 
+}
+
+/* Mapa (canto inferior esquerdo) */
+.mapa-acampamento {
+    position: absolute;          /* Posicionamento livre */
+    left: 5vw;
+    top: 530px;
+    width: 415px;
+    border-radius: 20%;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    
+    /* HABILITA O MOUSE */
+    pointer-events: auto; 
+}
+
+/* Imagem centralizada comum */
+.img-centro {
+    display: block;
+    margin: 20px auto;
+    width: 220px;
+}
+
+/* === EFEITO DE ZOOM AO PASSAR O MOUSE === */
+.mapa-acampamento:hover,
+.logo-canto:hover {
+    transform: scale(1.1);       /* Aumenta 10% */
+    z-index: 10;                 /* Traz para frente de tudo */
+}
+
+/**********************************************
+ * RODAPÉ
+ **********************************************/
+footer {
+    background-color: var(--azul-escuro);
+    color: var(--dourado);
+    text-align: center;
+    padding: 10px 5px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.3);
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    
+    /* Empurra para o fundo da página (Flexbox) */
+    margin-top: auto; 
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+
+/* 1. TABLETS E NOTEBOOKS MENORES (até 1024px) */
+@media (max-width: 1024px) {
+    h1 { font-size: 50px; }
+    
+    /* Transforma imagens flutuantes em blocos normais */
+    /* Isso evita que a imagem fique em cima do texto em telas menores */
+    .mapa-acampamento {
+        position: static;        /* Deixa de flutuar */
+        display: block;
+        margin: 30px auto;       /* Centraliza */
+        width: 60%;
+        max-width: 400px;
+    }
+
+    .logo-canto {
+        width: 120px;
+        top: 110px;
+        right: 20px;
+    }
+
+    .caixa-subtitulo {
+        font-size: 40px;
+        margin-top: 50px;
+    }
+
+    .bloco-texto {
+        font-size: 30px;
+        max-width: 90%;
+    }
+}
+
+/* 2. CELULARES GERAIS (até 768px) */
+@media (max-width: 768px) {
+    /* Ajuste do Header para não vazar */
+    header { padding: 5px 10px; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .logo { margin-bottom: 5px; }
+    .logo img { width: 30px; height: 30px; }
+    .logo h2 { font-size: 16px; }
+    nav ul { gap: 10px; justify-content: center; }
+    nav a { font-size: 11px; }
+
+    /* Conteúdo */
+    h1 { font-size: 32px; margin: 10px 0 20px; }
+    
+    .caixa-subtitulo {
+        font-size: 28px;
+        padding: 8px 15px;
+        margin: 20px auto;
+        width: 90%;
+        max-width: 300px;
+    }
+
+    .bloco-texto {
+        font-size: 22px;
+        padding: 0 10px;
+    }
+
+    /* Centraliza todas as imagens no celular */
+    .logo-canto {
+        position: static;
+        display: block;
+        margin: 20px auto;
+        width: 100px;
+    }
+
+    .mapa-acampamento {
+        position: static;
+        display: block;
+        width: 80%;
+        margin: 20px auto;
+    }
+
+    .img-centro { width:150px; }
+}
+
+/* 3. CELULARES MUITO PEQUENOS (até 480px) */
+@media (max-width: 480px) {
+    .logo h2 { display: none; }  /* Esconde texto da logo se faltar espaço */
+    nav ul { gap: 8px; }
+    
+    h1 { font-size: 28px; }
+    
+    .bloco-texto { font-size: 20px; }
+    
+    footer { font-size: 14px; }
+}

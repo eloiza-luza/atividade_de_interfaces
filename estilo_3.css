@@ -1,0 +1,341 @@
+/**********************************************
+ * VARIÁVEIS GERAIS
+ **********************************************/
+:root {
+    --azul-fundo: #6c89ab;       /* Cor principal de fundo do site */
+    --azul-escuro: rgba(31, 43, 58, 0.95); /* Cor do header e rodapé  */
+    --dourado: #f8e38d;          /* Cor usada para destaques/sombras */
+    --creme: #fff9ed;            /* Cor usada em textos claros e caixas */
+    --texto-escuro: #1f2b3a;     /* Cor de texto para contraste sobre o creme */
+}
+
+/**********************************************
+ * AJUSTES GERAIS
+ **********************************************/
+html {
+    width: 100%;
+    max-width: 100vw;            /* Trava de segurança: largura máxima é a tela */
+    height: 100%;                /* Garante altura para herança */
+    overflow-x: hidden;          /* Corta qualquer elemento que tente sair para os lados */
+    background-color: var(--azul-fundo);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    padding-top: 100px;          /* Espaço reservado para o menu fixo no topo */
+    
+    /* Configuração Flexbox Vertical */
+    /* Isso serve para empurrar o rodapé para o final da página automaticamente */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;           /* Altura mínima de 100% da tela visível */
+    
+    /* Travas de segurança contra rolagem lateral */
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+    
+    box-sizing: border-box;      /* Padding não aumenta o tamanho das caixas */
+    font-family: 'League Gothic', sans-serif;
+    background-color: var(--azul-fundo);
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+/* Configuração base para todas as imagens */
+img {
+    margin: 10px;
+    vertical-align: middle;
+    user-select: none;           /* Usuário não consegue selecionar a imagem */
+    pointer-events: none;        /* Desativa o clique/mouse */
+}
+
+* {
+    box-sizing: border-box;      /* Regra universal de dimensionamento */
+}
+
+/**********************************************
+ * CABEÇALHO
+ **********************************************/
+header {
+    background-color: var(--azul-escuro);
+    color: white;
+    
+    /* Alinha logo na esquerda e menu na direita */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+    padding: 5px 5vw;            /* Espaçamento responsivo */
+    
+    /* Fixa o menu no topo para ele acompanhar a rolagem */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;                    /* Estica de ponta a ponta */
+    width: auto;
+    
+    z-index: 1000;               /* Garante que fique acima de todo o conteúdo */
+    box-shadow: 0 3px 8px rgba(0,0,0,0.3); /* Sombra embaixo do menu */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;              /* Impede a logo de encolher */
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+.logo h2 {
+    font-size: 22px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;               /* Links lado a lado */
+    gap: 25px;
+    margin: 0;
+    padding: 0;
+    flex-wrap: wrap;             /* Permite quebrar linha em telas pequenas */
+    justify-content: flex-end;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+    font-size: 18px;
+    white-space: nowrap;
+}
+
+nav a:hover {
+    color: #a3c2f0;              /* Cor ao passar o mouse */
+}
+
+/**********************************************
+ * TÍTULO DA PÁGINA
+ **********************************************/
+h1 {
+    font-family: 'Bebas Neue', 'Impact', sans-serif;
+    font-size: 60px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--creme);
+    
+    /* Sombra 3D no texto */
+    text-shadow: 3px 3px 0 #000, 5px 5px 10px rgba(0,0,0,0.5), 0 0 25px #f8e38d;
+    
+    margin: 30px 0 60px 0;
+    padding: 0 10px;
+}
+
+/**********************************************
+ * BLOCOS DOS PERSONAGENS
+ **********************************************/
+
+/* Imagem do Personagem  */
+.img-personagem {
+    width: 220px;
+    border-radius: 20%;          /* Borda arredondada suave */
+    transition: transform 0.3s ease; /* Animação suave ao crescer */
+    
+    /* CORREÇÃO DO MOUSE: */
+    pointer-events: auto; 
+    
+    position: relative;
+    z-index: 1;
+}
+
+/* Efeito de Zoom ao passar o mouse */
+.img-personagem:hover {
+    transform: scale(1.3);       /* Aumenta 30% */
+    z-index: 10;                 /* Traz para frente para não ficar atrás do texto */
+}
+
+/* Container de cada personagem (Imagem + Texto) */
+.personagem {
+    display: flex;               /* Coloca lado a lado */
+    align-items: center;         /* Centraliza verticalmente */
+    margin: -30px 0;             /* Margem negativa aproxima um bloco do outro */
+    gap: 60px;                   /* Espaço entre a foto e o texto */
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+/* === LÓGICA DE ALTERNÂNCIA (ESQUERDA / DIREITA) === */
+
+/* Classe para imagem na Esquerda */
+.linha-esq {
+    flex-direction: row;         /* Normal: Imagem -> Texto */
+    padding-left: 5vw;           /* Afasta da borda esquerda */
+    justify-content: flex-start;
+}
+
+/* Classe para imagem na Direita */
+.linha-dir {
+    flex-direction: row-reverse; /* Invertido: Texto <- Imagem */
+    padding-right: 5vw;          /* Afasta da borda direita */
+    justify-content: flex-start;
+}
+
+/* Ajustes finos de margem nas imagens */
+.linha-esq .img-personagem { margin-left: 20px; }
+.linha-dir .img-personagem { margin-right: 20px; }
+
+/* Bloco de Texto (Descrição + Cápsula) */
+.info {
+    max-width: 800px;
+    text-align: left;            /* Texto alinhado à esquerda */
+}
+
+/* Se o personagem estiver na direita, alinhamos o texto à direita também */
+.linha-dir .info {
+    text-align: right;
+}
+
+/* Descrição do personagem */
+.personagem p {
+    font-size: 35px;
+    color: var(--creme);
+    margin: 10px 0 0;
+    line-height: 1.4;
+}
+
+/* Cápsula com o nome */
+.capsula {
+    background-color: var(--creme);
+    color: var(--azul-escuro);
+    padding: 12px 25px;
+    border-radius: 20px;
+    font-size: 40px;
+    text-transform: uppercase;
+    display: inline-block;       /* Ocupa só o tamanho do texto */
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    letter-spacing: 2px;
+    font-family: 'Bebas Neue', sans-serif;
+}
+
+/* Espaço extra no último personagem para não colar no rodapé */
+.personagem:last-of-type {
+    margin-bottom: 80px;
+}
+
+/**********************************************
+ * RODAPÉ 
+ **********************************************/
+footer {
+    background-color: var(--azul-escuro);
+    color: var(--dourado);
+    text-align: center;
+    padding: 10px 5px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    box-shadow: 0 -3px 8px rgba(0,0,0,0.3); /* Sombra invertida (para cima) */
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.4);
+    
+    width: 100%;
+    position: relative;
+    z-index: 10;
+    
+    /* Empurra o rodapé para o final do container pai (body) */
+    margin-top: auto; 
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVIDADE)
+   ========================================================================== */
+
+/* 1. TABLETS E NOTEBOOKS MENORES (até 1024px) */
+@media (max-width: 1024px) {
+    h1 { font-size: 50px; margin: 30px 0 40px; }
+
+    .personagem {
+        gap: 30px;
+        margin: 0;               /* Removemos a sobreposição em telas menores */
+        padding: 30px 0;
+    }
+
+    .img-personagem { width: 180px; }
+    .personagem p { font-size: 30px; }
+    .capsula { font-size: 35px; padding: 10px 20px; }
+    
+    .linha-esq { padding-left: 20px; }
+    .linha-dir { padding-right: 20px; }
+}
+
+/* 2. CELULARES GERAIS (até 768px) */
+@media (max-width: 768px) {
+    /* Header Ajustado para caber o menu */
+    header { padding: 5px 10px; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .logo { margin-bottom: 5px; }
+    .logo img { width: 30px; height: 30px; }
+    .logo h2 { font-size: 16px; }
+    nav ul { gap: 10px; justify-content: center; }
+    nav a { font-size: 11px; }
+
+    /* Título menor */
+    h1 { font-size: 32px; margin: 20px 0 30px; }
+
+    /* === MUDANÇA RADICAL PARA CELULAR === */
+    /* Transformamos as linhas horizontais em colunas verticais */
+    .personagem, 
+    .linha-esq, 
+    .linha-dir {
+        flex-direction: column !important; /* Força um embaixo do outro */
+        text-align: center !important;     /* Centraliza tudo */
+        justify-content: center;
+        padding: 0;
+        margin: 40px 0;
+    }
+
+    .info, 
+    .linha-dir .info {
+        text-align: center !important;     /* Centraliza o texto explicativo */
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .img-personagem,
+    .linha-esq .img-personagem,
+    .linha-dir .img-personagem {
+        margin: 0 0 20px 0 !important;     /* Remove margens laterais */
+        width: 200px;
+    }
+
+    .capsula {
+        font-size: 30px;
+        padding: 8px 20px;
+    }
+
+    .personagem p {
+        font-size: 22px;
+    }
+}
+
+/* 3. CELULARES MUITO PEQUENOS (até 480px) */
+@media (max-width: 480px) {
+    .logo h2 { display: none; }  /* Esconde nome do site para caber o menu */
+    nav ul { gap: 8px; }
+    
+    h1 { font-size: 28px; }
+    
+    .capsula { font-size: 24px; }
+    .personagem p { font-size: 18px; }
+    .img-personagem { width: 150px; }
+    
+    footer { font-size: 14px; }
+}
